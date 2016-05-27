@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">Blend Test</string>
+
+    <string name="txt_toolbar_items">Food Items</string>
+    <string name="txt_toolbar_categories">Food Categories</string>
+
+    <string name="msg_downloading">Downloading...</string>
+
+    <string name="txt_empty_list_items">There are not items to show :)</string>
+    <string name="txt_food_list_name">Name:</string>
+    <string name="txt_food_list_category">Category:</string>
+    <string name="txt_food_list_received">Received:</string>
+    <string name="txt_food_list_quantity">Quantity:</string>
+    <string name="txt_food_list_notes">Notes:</string>
+
+    <!-- Error -->
+    <string name="error_no_network">No network error</string>
+
+</resources>
