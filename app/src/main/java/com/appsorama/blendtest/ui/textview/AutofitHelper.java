@@ -1,7 +1,7 @@
 package com.appsorama.blendtest.ui.textview;
 
 /**
- * Created by Jose Torres in Apps-O-Rama on 20/04/16.
+ * Created by Jose Torres in FreakyByte on 20/04/16.
  */
 
 import android.content.Context;

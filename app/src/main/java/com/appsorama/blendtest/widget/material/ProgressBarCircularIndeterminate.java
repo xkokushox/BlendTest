@@ -13,7 +13,7 @@ import android.util.AttributeSet;
 import com.appsorama.blendtest.util.AndroidUtil;
 
 /**
- * Created by Jose Torres in Apps-O-Rama on 19/04/16.
+ * Created by Jose Torres in FreakyByte on 19/04/16.
  */
 public class ProgressBarCircularIndeterminate extends CustomView {
 

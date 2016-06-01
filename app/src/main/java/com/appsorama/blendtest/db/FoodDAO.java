@@ -9,7 +9,7 @@ import com.appsorama.blendtest.util.DebugUtils;
 import java.util.ArrayList;
 
 /**
- * Created by Jose Torres in Apps-O-Rama on 19/04/16.
+ * Created by Jose Torres in FreakyByte on 19/04/16.
  */
 public class FoodDAO extends MainDAO {
     public final static String TAG = "FoodDAO";

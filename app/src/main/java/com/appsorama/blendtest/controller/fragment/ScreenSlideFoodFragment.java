@@ -19,7 +19,7 @@ import com.appsorama.blendtest.util.DebugUtils;
 import java.util.ArrayList;
 
 /**
- * Created by Jose Torres in Apps-O-Rama on 4/20/16.
+ * Created by Jose Torres in FreakyByte on 4/20/16.
  */
 public class ScreenSlideFoodFragment extends Fragment implements RecyclerListListener {
     public static final String TAG = "ScreenSlideFoodFragment";
@@ -54,11 +54,11 @@ public class ScreenSlideFoodFragment extends Fragment implements RecyclerListLis
         getListFood().setHasFixedSize(true);
         getListFood().setLayoutManager(mLinearLayoutManager);
 
-        getListAdapter().aListFood.clear();
-        getListAdapter().aListFood.addAll(aFoodList);
+        getListAdapter().getListFood().clear();
+        getListAdapter().getListFood().addAll(aFoodList);
 
-        getTxtEmptyView().setVisibility(getListAdapter().aListFood.isEmpty() ? View.VISIBLE : View.GONE);
-        getListFood().setVisibility(getListAdapter().aListFood.isEmpty() ? View.GONE : View.VISIBLE);
+        getTxtEmptyView().setVisibility(getListAdapter().getListFood().isEmpty() ? View.VISIBLE : View.GONE);
+        getListFood().setVisibility(getListAdapter().getListFood().isEmpty() ? View.GONE : View.VISIBLE);
 
         return rootView;
     }

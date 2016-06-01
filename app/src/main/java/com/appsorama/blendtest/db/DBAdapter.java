@@ -12,7 +12,7 @@ import com.appsorama.blendtest.BlendApplication;
 import com.appsorama.blendtest.util.DebugUtils;
 
 /**
- * Created by Jose Torres in Apps-O-Rama on 19/04/16.
+ * Created by Jose Torres in FreakyByte on 19/04/16.
  */
 public class DBAdapter {
     public static final String TAG = "DBAdapter";

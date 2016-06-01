@@ -13,7 +13,7 @@ import com.appsorama.blendtest.R;
 import com.appsorama.blendtest.widget.material.ProgressBarCircularIndeterminate;
 
 /**
- * Created by Jose Torres in Apps-O-Rama on 19/04/16.
+ * Created by Jose Torres in FreakyByte on 19/04/16.
  */
 public class ProgressDialog extends android.app.Dialog {
 

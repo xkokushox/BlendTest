@@ -28,7 +28,7 @@ import java.util.ArrayList;
 import cz.msebera.android.httpclient.Header;
 
 /**
- * Created by Jose Torres in Apps-O-Rama on 19/04/16.
+ * Created by Jose Torres in FreakyByte on 19/04/16.
  */
 public class HomeActivity extends MainActivity implements RecyclerListListener, View.OnClickListener {
     public static final String TAG = "HomeActivity";
@@ -116,10 +116,10 @@ public class HomeActivity extends MainActivity implements RecyclerListListener, 
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                getListAdapter().aListFood.clear();
-                getListAdapter().aListFood.addAll(aFoodList);
-                getTxtEmptyView().setVisibility(getListAdapter().aListFood.isEmpty() ? View.VISIBLE : View.GONE);
-                getListFood().setVisibility(getListAdapter().aListFood.isEmpty() ? View.GONE : View.VISIBLE);
+                getListAdapter().getListFood().clear();
+                getListAdapter().getListFood().addAll(aFoodList);
+                getTxtEmptyView().setVisibility(getListAdapter().getListFood().isEmpty() ? View.VISIBLE : View.GONE);
+                getListFood().setVisibility(getListAdapter().getListFood().isEmpty() ? View.GONE : View.VISIBLE);
                 getListAdapter().notifyDataSetChanged();
             }
         });

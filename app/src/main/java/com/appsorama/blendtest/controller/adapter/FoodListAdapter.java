@@ -15,12 +15,12 @@ import com.appsorama.blendtest.widget.wrapper.ItemFoodWrapper;
 import java.util.ArrayList;
 
 /**
- * Created by Jose Torres in Apps-O-Rama on 19/04/16.
+ * Created by Jose Torres in FreakyByte on 19/04/16.
  */
 public class FoodListAdapter extends RecyclerView.Adapter<ItemFoodWrapper> {
 
     public static final String TAG = "OrderListAdapter";
-    public ArrayList<FoodModel> aListFood = new ArrayList<>();
+    private ArrayList<FoodModel> aListFood = new ArrayList<>();
     private Activity mActivity;
     private RecyclerListListener mClickListener;
 
@@ -78,5 +78,11 @@ public class FoodListAdapter extends RecyclerView.Adapter<ItemFoodWrapper> {
         return aListFood.size();
     }
 
+    public ArrayList<FoodModel> getListFood() {
+        return aListFood;
+    }
 
+    public void setListFood(ArrayList<FoodModel> aListFood) {
+        this.aListFood = aListFood;
+    }
 }

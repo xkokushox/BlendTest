@@ -1,4 +1,4 @@
-In Apps-O-Rama we are focused in creating experiences instead of simple apps, and for this test i would like you to notice this things that are in the code :
+In FreakyByte we are focused in creating experiences instead of simple apps, and for this test i would like you to notice this things that are in the code :
 
 
 Min SDK is 16 -> This means that the 96 % of the devices will be compatible with our product 

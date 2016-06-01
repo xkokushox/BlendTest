@@ -6,7 +6,7 @@ import android.util.TypedValue;
 import android.widget.TextView;
 
 /**
- * Created by Jose Torres in Apps-O-Rama on 20/04/16.
+ * Created by Jose Torres in FreakyByte on 20/04/16.
  */
 
 public class AutoFitTxtView extends TextView implements AutofitHelper.OnTextSizeChangeListener {
