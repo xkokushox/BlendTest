@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/BlendTheme">
         <activity
-            android:name=".controller.HomeActivity"
+            android:name=".controller.home.controller.HomeActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

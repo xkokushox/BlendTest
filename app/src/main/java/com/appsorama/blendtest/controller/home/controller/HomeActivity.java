@@ -1,4 +1,4 @@
-package com.appsorama.blendtest.controller;
+package com.appsorama.blendtest.controller.home.controller;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,26 +11,24 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.appsorama.blendtest.R;
+import com.appsorama.blendtest.controller.FoodCategoryActivity;
+import com.appsorama.blendtest.controller.MainActivity;
 import com.appsorama.blendtest.controller.adapter.FoodListAdapter;
+import com.appsorama.blendtest.controller.home.constructors.HomePresenter;
+import com.appsorama.blendtest.controller.home.impl.HomePresenterImpl;
+import com.appsorama.blendtest.controller.home.constructors.HomeView;
 import com.appsorama.blendtest.db.FoodDAO;
 import com.appsorama.blendtest.dialog.ProgressDialog;
 import com.appsorama.blendtest.listener.RecyclerListListener;
 import com.appsorama.blendtest.model.FoodModel;
-import com.appsorama.blendtest.parser.ItemParser;
 import com.appsorama.blendtest.util.DebugUtils;
-import com.appsorama.blendtest.util.WidgetUtils;
-import com.appsorama.blendtest.web.BlendApi;
-import com.appsorama.blendtest.web.BlendRestClient;
-import com.loopj.android.http.TextHttpResponseHandler;
 
 import java.util.ArrayList;
-
-import cz.msebera.android.httpclient.Header;
 
 /**
  * Created by Jose Torres in FreakyByte on 19/04/16.
  */
-public class HomeActivity extends MainActivity implements RecyclerListListener, View.OnClickListener {
+public class HomeActivity extends MainActivity implements HomeView, RecyclerListListener, View.OnClickListener {
     public static final String TAG = "HomeActivity";
 
     private ArrayList<FoodModel> aFoodList = new ArrayList<>();
@@ -43,6 +41,8 @@ public class HomeActivity extends MainActivity implements RecyclerListListener, 
     private FoodListAdapter mAdapter;
     private FoodDAO mFoodDao;
 
+    private HomePresenter mPresenter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,79 +53,22 @@ public class HomeActivity extends MainActivity implements RecyclerListListener, 
         getMenuItemCategories().setOnClickListener(HomeActivity.this);
 
         mFoodDao = new FoodDAO();
+        mPresenter = new HomePresenterImpl(this);
 
         getSwipeRefreshLayout().setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                getItems();
+                mPresenter.onRefreshFoodList();
             }
         });
 
         getListFood().setAdapter(getListAdapter());
 
-        showLoader(getString(R.string.msg_downloading), false);
-        getItems();
+        mPresenter.getItems();
     }
 
-    private void getItems() {
-
-        BlendRestClient.get(BlendApi.geItemsUrl(), new TextHttpResponseHandler() {
-
-            @Override
-            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                DebugUtils.logError(TAG, "getItems:: " + responseString);
-
-                switch (statusCode) {
-                    case 0:
-                        WidgetUtils.createShortToast(getString(R.string.error_no_network));
-                        break;
-                    default:
-                        WidgetUtils.createShortToast("Status Code:: " + statusCode + " Response:: " + responseString);
-                        break;
-                }
-                if (aFoodList.isEmpty()) {
-                    aFoodList = mFoodDao.getAllFruits();
-                    refreshFoodList();
-                }
-
-                onFinish();
-            }
-
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, String responseString) {
-                aFoodList = ItemParser.parseListItems(responseString);
-
-                mFoodDao.clearAllData();
-                mFoodDao.insertAllFruits(aFoodList);
-
-                refreshFoodList();
-
-                onFinish();
-            }
-
-            @Override
-            public void onFinish() {
-
-                hideLoader();
-            }
-        });
-    }
-
-
-    private void refreshFoodList() {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                getListAdapter().getListFood().clear();
-                getListAdapter().getListFood().addAll(aFoodList);
-                getTxtEmptyView().setVisibility(getListAdapter().getListFood().isEmpty() ? View.VISIBLE : View.GONE);
-                getListFood().setVisibility(getListAdapter().getListFood().isEmpty() ? View.GONE : View.VISIBLE);
-                getListAdapter().notifyDataSetChanged();
-            }
-        });
-    }
-
-    private void showLoader(final String sMessage, final boolean bCancelable) {
+    @Override
+    public void showLoader(final String sMessage, final boolean bCancelable) {
 
         runOnUiThread(new Runnable() {
             @Override
@@ -139,7 +82,8 @@ public class HomeActivity extends MainActivity implements RecyclerListListener, 
         });
     }
 
-    private void hideLoader() {
+    @Override
+    public void hideLoader() {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -148,6 +92,29 @@ public class HomeActivity extends MainActivity implements RecyclerListListener, 
                     mLoaderDialog.dismiss();
             }
         });
+    }
+
+    @Override
+    public void fillAdapter() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                aFoodList = mFoodDao.getAllFruits();
+
+                getListAdapter().getListFood().clear();
+                getListAdapter().getListFood().addAll(aFoodList);
+                getTxtEmptyView().setVisibility(getListAdapter().getListFood().isEmpty() ? View.VISIBLE : View.GONE);
+                getListFood().setVisibility(getListAdapter().getListFood().isEmpty() ? View.GONE : View.VISIBLE);
+                getListAdapter().notifyDataSetChanged();
+            }
+        });
+    }
+
+    @Override
+    public void refreshAdapter() {
+        if (aFoodList.isEmpty()) {
+            fillAdapter();
+        }
     }
 
     @Override
@@ -168,6 +135,11 @@ public class HomeActivity extends MainActivity implements RecyclerListListener, 
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        mPresenter.onDestroy();
+        super.onDestroy();
+    }
 
     private Toolbar getToolbar() {
         if (mToolbar == null)
